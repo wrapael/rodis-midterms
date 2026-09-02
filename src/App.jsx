@@ -49,6 +49,10 @@ function App() {
   const [selectedGadget, setSelectedGadget] = useState(null);
   const [activeGadget, setActiveGadget] = useState(null);
   const [categoryFilter, setCategoryFilter] = useState("All");
+  const [pagination, setPagination] = useState({
+    pageIndex: 0,
+    pageSize: 3,
+  });
 
   useEffect(
     function () {
@@ -137,14 +141,21 @@ function App() {
   const table = useReactTable({
     data: displayedGadgets,
     columns: columns,
+    state: {
+      pagination: pagination,
+    },
+    onPaginationChange: setPagination,
+    autoResetPageIndex: false,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    initialState: { pagination: { pageSize: 3 } },
   });
 
   function handleFilterChange(event) {
     setCategoryFilter(event.target.value);
-    table.setPageIndex(0);
+    setPagination({
+      pageIndex: 0,
+      pageSize: 3,
+    });
   }
 
   return (
