@@ -1,0 +1,48 @@
+:root { font-family: Arial, sans-serif; color: #172033; background: #f3f6fb; }
+* { box-sizing: border-box; }
+.app-shell { min-height: 100vh; padding: 28px 0; background: radial-gradient(circle at top right, #dfe8ff 0, transparent 35%), #f3f6fb; }
+.app-shell .MuiContainer-root { max-width: 780px; }
+.page-header { margin-bottom: 22px; padding-left: 2px; }
+.student-label { color: #3157d5; font-size: 11px !important; font-weight: bold !important; }
+.page-header h1 { margin-top: 5px; font-size: 30px; font-weight: 700; letter-spacing: -.02em; }
+.content-grid, .registry-area { display: grid; gap: 16px; }
+.form-panel { width: 100%; max-width: 600px; margin: 0 auto; }
+.panel, .profile-card { border: 1px solid #d7dfe3; border-radius: 10px !important; box-shadow: none !important; }
+.panel .MuiCardContent-root, .profile-card .MuiCardContent-root { padding: 20px; }
+.section-heading, .registry-heading, .pagination, .profile-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.section-heading, .registry-heading, .profile-card h2 { padding-bottom: 12px; margin-bottom: 18px !important; border-bottom: 1px solid #e0e5e8; }
+.section-heading h2, .registry-heading h2, .profile-card h2 { font-size: 16px; font-weight: 700; }
+.section-heading span, .filter-control, .pagination { font-size: 11px; }
+.form-panel .MuiStack-root { display: grid; grid-template-columns: 1fr; gap: 14px; }
+.form-panel .MuiStack-root > * { margin: 0 !important; }
+.form-panel .MuiStack-root > *, .form-panel .MuiFormControl-root:last-of-type, .form-panel .add-button { grid-column: 1; }
+.form-panel .MuiInputBase-root { border-radius: 5px; font-size: 13px; }
+.form-panel .MuiInputBase-input { padding: 10px; }
+.form-panel .MuiInputLabel-root { font-size: 13px; transform: translate(0, -15px) scale(.85); color: #344054; }
+.form-panel .MuiOutlinedInput-notchedOutline { border-color: #b8c2ca; }
+.form-panel .MuiFormHelperText-root { margin: 3px 0 0; font-size: 10px; }
+.form-panel .MuiFormLabel-root, .form-panel .MuiFormControlLabel-label { font-size: 12px; }
+.form-panel .MuiRadio-root { padding: 3px; }
+.form-panel .MuiSvgIcon-root { width: 14px; height: 14px; }
+.add-button { min-height: 36px !important; padding: 6px 12px !important; border-radius: 5px !important; background: #3157d5 !important; font-size: 12px !important; text-transform: none !important; }
+.filter-control { display: flex; align-items: center; gap: 7px; }
+.filter-field { width: 120px; }
+.filter-field .MuiSelect-select { padding: 7px 28px 7px 9px; font-size: 11px; }
+.table-wrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; min-width: 620px; }
+th, td { padding: 12px 10px; text-align: left; border-bottom: 1px solid #e0e5e8; font-size: 12px; }
+th { color: #52606d; background: #f7f9fa; font-size: 11px; font-weight: 600; }
+tbody tr { cursor: pointer; }
+tbody tr:hover { background: #f2f5ff; }
+.selected-row { background: #e8edff !important; }
+.empty-state { padding: 32px 10px; text-align: center; color: #667085; font-size: 12px; border-bottom: 1px solid #e0e5e8; }
+.pagination { margin-top: 14px; color: #667085; }
+.pagination .MuiButton-root { min-width: 0; padding: 4px 11px; border-color: #c8d0d5; color: #344054; font-size: 10px; text-transform: none; }
+.profile-title { justify-content: flex-start; margin-bottom: 16px; font-size: 14px; }
+.profile-title .MuiChip-root { height: 22px; font-size: 10px; background: #e8edff; color: #2446ae; }
+.detail-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.detail { padding: 10px; border-radius: 5px; background: #f7f9fa; }
+.detail span { display: block; margin-bottom: 4px; color: #667085; font-size: 10px; }
+.detail strong { display: block; font-size: 12px; font-weight: 500; }
+footer { margin-top: 18px; text-align: center; color: #7a858f; font-size: 10px; }
+@media (max-width: 560px) { .app-shell { padding: 8px 0 16px; } .page-header h1 { font-size: 26px; } .form-panel .MuiStack-root, .detail-grid { grid-template-columns: 1fr; } .form-panel .MuiStack-root > * { grid-column: 1; } }
