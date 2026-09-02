@@ -8,6 +8,7 @@
 .content-grid, .registry-area { display: grid; gap: 16px; }
 .form-panel { width: 100%; max-width: 600px; margin: 0 auto; }
 .panel, .profile-card { border: 1px solid #d7dfe3; border-radius: 10px !important; box-shadow: none !important; }
+.panel + .panel, .panel + .profile-card { margin-top: 10px; }
 .panel .MuiCardContent-root, .profile-card .MuiCardContent-root { padding: 20px; }
 .section-heading, .registry-heading, .pagination, .profile-title { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
 .section-heading, .registry-heading, .profile-card h2 { padding-bottom: 12px; margin-bottom: 18px !important; border-bottom: 1px solid #e0e5e8; }

@@ -370,7 +370,6 @@ function App() {
             )}
           </CardContent>
         </Card>
-        <footer>John Rafael Rodis - iNF231</footer>
       </Container>
     </Box>
   );
