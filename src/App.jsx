@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import {
   Box,
   Button,
@@ -121,12 +121,18 @@ function App() {
     setErrors({});
   }
 
-  let displayedGadgets = gadgets;
-  if (categoryFilter !== "All") {
-    displayedGadgets = gadgets.filter(function (gadget) {
-      return gadget.category === categoryFilter;
-    });
-  }
+  const displayedGadgets = useMemo(
+    function () {
+      if (categoryFilter === "All") {
+        return gadgets;
+      }
+
+      return gadgets.filter(function (gadget) {
+        return gadget.category === categoryFilter;
+      });
+    },
+    [gadgets, categoryFilter],
+  );
 
   const table = useReactTable({
     data: displayedGadgets,
@@ -135,6 +141,11 @@ function App() {
     getPaginationRowModel: getPaginationRowModel(),
     initialState: { pagination: { pageSize: 3 } },
   });
+
+  function handleFilterChange(event) {
+    setCategoryFilter(event.target.value);
+    table.setPageIndex(0);
+  }
 
   return (
     <Box className="app-shell">
@@ -247,9 +258,7 @@ function App() {
                   size="small"
                   className="filter-field"
                   value={categoryFilter}
-                  onChange={function (event) {
-                    setCategoryFilter(event.target.value);
-                  }}
+                  onChange={handleFilterChange}
                 >
                   <MenuItem value="All">All</MenuItem>
                   {categories.map(function (category) {
