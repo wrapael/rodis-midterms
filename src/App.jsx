@@ -1,14 +1,23 @@
 import { useState } from 'react'
 import { Box, Button, Card, CardContent, Container, FormControl, FormControlLabel, FormHelperText, FormLabel, MenuItem, Radio, RadioGroup, Stack, TextField, Typography } from '@mui/material'
+import { flexRender, getCoreRowModel, getPaginationRowModel, useReactTable } from '@tanstack/react-table'
 import './App.css'
 
 const categories = ['Smartphone', 'Laptop', 'Wearable', 'Audio']
 const emptyForm = { gadgetName: '', category: '', manufacturer: '', healthRating: '', techBrand: '', role: '' }
+const columns = [
+  { accessorKey: 'gadgetName', header: 'Gadget' },
+  { accessorKey: 'category', header: 'Category' },
+  { accessorKey: 'manufacturer', header: 'Manufacturer' },
+  { accessorKey: 'healthRating', header: 'Health' },
+  { accessorKey: 'role', header: 'Role' },
+]
 
 function App() {
   const [form, setForm] = useState(emptyForm)
   const [errors, setErrors] = useState({})
   const [gadgets, setGadgets] = useState([])
+  const [selectedGadget, setSelectedGadget] = useState(null)
 
   function validateForm() {
     const rating = Number(form.healthRating)
@@ -45,9 +54,18 @@ function App() {
     if (Object.keys(formErrors).length > 0) return
     const newGadget = { ...form, id: Date.now(), healthRating: Number(form.healthRating) }
     setGadgets([...gadgets, newGadget])
+    setSelectedGadget(newGadget)
     setForm(emptyForm)
     setErrors({})
   }
+
+  const table = useReactTable({
+    data: gadgets,
+    columns: columns,
+    getCoreRowModel: getCoreRowModel(),
+    getPaginationRowModel: getPaginationRowModel(),
+    initialState: { pagination: { pageSize: 3 } },
+  })
 
   return (
     <Box className="app-shell"><Container>
@@ -67,7 +85,32 @@ function App() {
           <Button className="add-button" variant="contained" onClick={handleSubmit}>Add gadget</Button>
         </Stack>
       </CardContent></Card>
-      <footer>John Rafael Rodis - iNF231</footer>
+      <Card className="panel"><CardContent>
+        <div className="registry-heading"><Typography variant="h6">Gadget List</Typography></div>
+        <div className="table-wrap">
+          <table>
+            <thead>{table.getHeaderGroups().map(function (group) {
+              return <tr key={group.id}>{group.headers.map(function (header) {
+                return <th key={header.id}>{flexRender(header.column.columnDef.header, header.getContext())}</th>
+              })}</tr>
+            })}</thead>
+            <tbody>{table.getRowModel().rows.map(function (row) {
+              const selected = selectedGadget && selectedGadget.id === row.original.id
+              return <tr key={row.id} className={selected ? 'selected-row' : ''} onClick={function () { setSelectedGadget(row.original) }}>{row.getVisibleCells().map(function (cell) {
+                return <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+              })}</tr>
+            })}</tbody>
+          </table>
+          {gadgets.length === 0 && <div className="empty-state">No gadgets found.</div>}
+        </div>
+        <div className="pagination">
+          <span>Page {table.getState().pagination.pageIndex + 1} of {Math.max(table.getPageCount(), 1)}</span>
+          <Stack direction="row" spacing={1}>
+            <Button variant="outlined" onClick={table.previousPage} disabled={!table.getCanPreviousPage()}>Previous</Button>
+            <Button variant="outlined" onClick={table.nextPage} disabled={!table.getCanNextPage()}>Next</Button>
+          </Stack>
+        </div>
+      </CardContent></Card>
     </Container></Box>
   )
 }
